@@ -1,0 +1,94 @@
+? TRIO analizi?
+
+# PVS1
+- Null anotasyonların anotasyon sonucu belirlenmesi
+- LOF genlerinde yer alanlar
+-- https://github.com/kshefchek/mybiocaddie/blob/gh-pages/_metadata/exac-lof.md
+- 3' bölgesine yakın ise uyarı.
+
+# PS1
+- ClinVar'ın pathogenic/likelypath kayıtları ile amino asit dönüşümü aynı ancak aynı konumdaki farklı nükleotit dönüşümleri
+- ClinVar'ın pat/likpat verileri çekilecek. HGVS amino asit pozisyon değerleri eşleştirilecek ve nükleotit değişimi kontrol edilecek.
+
+# PS2
+- Uyumlu değil. Trio yok. Babalık testi girişi istiyor.
+
+# PS3
+- Broad Achilles
+
+# PS4
+- https://www.ebi.ac.uk/gwas/variants/rs7329174
+- VEP/PostGap
+
+# PM1
+- Sonradan bed dosyası temin edilecek.
+- Hotspot'lar için https://www.cancerhotspots.org/#/home
+
+# PM2
+- <1/5000 GNomad, <1/1000 1000Genomes
+
+# PM3
+- Uygun değil.Trans/cis'leri ayıramıyoruz.
+- Trio yüklendiğinde, ebeveynlerden sadece biri patojenik/lik taşıyorsa, aynı gen içinde yer alan diğer her türlü missense/null varyant
+
+# PM4
+- Stop-loss varyantlar
+- inframe indel'ler ancak temin edilecek bed dosyası dışında olanlar
+
+# PM5
+- PS1 gibi ancak dönüşüm aminoasidi var.
+
+# PM6
+- Trio ile çözülebilir. 
+
+# PP1
+- Uyumlu değil.
+
+# PP2
+- Sonradan bed dosyası temin edilecek.
+
+# PP3
+- in silico
+
+# PP4
+- Uyumlu değil
+
+# PP5
+- ClinVar pathogenic/likely pathogenic
+
+# BA1
+- EXAC | 0.05>1000G
+
+# BS1
+- Hastalık ve frekans değerleri önceden dosya olarak verilecek.
+
+# BS2
+- 1000G üzerinden het/hom var yok analizi yapılacak.
+
+# BS3 
+- Uyumlu değil. Şimdilik...
+
+# BS4
+- Uyumlu değil. 
+
+# BP1
+- LOF geninde (sonradan liste değişebilir) missense
+
+# BP2
+- Uyumlu değil
+
+# BP3
+- Verilecek bed dosyası içinde yer alan indeller 
+
+# BP4
+- in silico
+
+# BP5
+- Expert panel uyumu var ise diğer tüm varyantlara atama
+- İlişkili varyant bulunduğunda, geriye dönük diğer tüm varyantlara atama
+
+# BP6
+- ClinVar Benign
+
+# BP7
+- Ensembl GeneSplicer/Conservation

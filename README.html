@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+</head>
+<body>
+<h1 id="picus">Picus</h1>
+<p>Pointed Interpretation of Clinical Variant Significance</p>
+<h2 id="quick-install">Quick Install</h2>
+<ul>
+<li>Linux&amp;Mac</li>
+</ul>
+<blockquote>
+<p>sudo pip3 install picus</p>
+</blockquote>
+<ul>
+<li>Windows</li>
+</ul>
+<blockquote>
+<p>pip install picus</p>
+</blockquote>
+<h2 id="example-uses">Example Uses</h2>
+<ul>
+<li>Picus examples</li>
+</ul>
+<blockquote>
+<p>picus -i input.csv -o output.json</p>
+</blockquote>
+<h2 id="evidence-collection-process">Evidence Collection Process</h2>
+<h3 id="pvs1">PVS1</h3>
+<ul>
+<li>PVS1 null variant (nonsense, frameshift, canonical ±1 or 2 splice sites, initiation codon, single or multiexon deletion) in a gene where LOF is a known mechanism of disease.</li>
+</ul>
+<h4 id="status">Status</h4>
+<ul>
+<li>Implemented</li>
+</ul>
+<h4 id="resources">Resources</h4>
+<ul>
+<li>LoF genes list from intervar. https://raw.githubusercontent.com/barslmn/InterVar/master/intervardb/PVS1.LOF.genes.hg19</li>
+<li>Null variants defined as HIGH IMPACT by https://www.ensembl.org/info/genome/variation/prediction/predicted_data.html</li>
+</ul>
+<h4 id="conditions">Conditions</h4>
+<ul>
+<li>“gene_symbol” is in LoF gene list.</li>
+<li>“transcript_consequence_terms” is high impact.</li>
+</ul>
+<h4 id="shortcomings">Shortcomings</h4>
+<ul>
+<li>LoF gene list is only predictive and may be missing some actual LoF genes.</li>
+<li>No checks for multiexon deletion.</li>
+</ul>
+<h3 id="ps1">PS1</h3>
+<ul>
+<li>Same amino acid change as a previously established pathogenic variant regardless of nucleotide change.</li>
+</ul>
+<h4 id="status-1">Status</h4>
+<ul>
+<li>Implemented</li>
+</ul>
+<h4 id="resources-1">Resources</h4>
+<ul>
+<li>Clinvar xml (ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/)</li>
+</ul>
+<h4 id="annotation-steps">Annotation Steps</h4>
+<ol type="1">
+<li>Clinvar data is parsed using https://github.com/barslmn/clinvar.</li>
+<li>Sample data and clinvar data is merged based on columns “CHR” and “POS”.</li>
+<li>Clinvar feature columns “ALT”, “hgvsp”, and “clinical_significance” added to original annotation.</li>
+</ol>
+<h4 id="conditions-1">Conditions</h4>
+<ol type="1">
+<li>“clinical_significance” is pathogenic.</li>
+<li>Sample “hgvsp” and later added clinvar “hgvsp” changes are the same.</li>
+<li>Sample “ALT” and clinvar “ALT” are different.</li>
+</ol>
+<h4 id="shortcomings-1">Shortcomings</h4>
+<h3 id="ps2">PS2</h3>
+<ul>
+<li>De novo (both maternity and paternity confirmed) in a patient with the disease and no family history.</li>
+</ul>
+<h4 id="status-2">Status</h4>
+<ul>
+<li>Not Checked</li>
+</ul>
+<h4 id="resources-2">Resources</h4>
+<h4 id="conditions-2">Conditions</h4>
+<h4 id="shortcomings-2">Shortcomings</h4>
+<h3 id="ps3">PS3</h3>
+<ul>
+<li>Well-established in vitro or in vivo functional studies supportive of a damaging effect on the gene or gene product</li>
+</ul>
+<h4 id="status-3">Status</h4>
+<ul>
+<li>Not Checked</li>
+</ul>
+<h4 id="resources-3">Resources</h4>
+<h4 id="conditions-3">Conditions</h4>
+<h4 id="shortcomings-3">Shortcomings</h4>
+<h3 id="ps4">PS4</h3>
+<ul>
+<li>The prevalence of the variant in affected individuals is significantly increased compared with the prevalence in controls</li>
+</ul>
+<h4 id="status-4">Status</h4>
+<ul>
+<li>Implemented</li>
+</ul>
+<h4 id="resources-4">Resources</h4>
+<ul>
+<li>https://github.com/WGLab/InterVar/blob/master/intervardb/PS4.variants.hg19</li>
+</ul>
+<h4 id="conditions-4">Conditions</h4>
+<ol type="1">
+<li>“id” is in id list.</li>
+</ol>
+<h4 id="shortcomings-4">Shortcomings</h4>
+<ol type="1">
+<li>No idea how the source is made.</li>
+</ol>
+<h3 id="pm1">PM1</h3>
+<ul>
+<li>Located in a mutational hot spot and/or critical and well-established functional domain (e.g., active site of an enzyme) without benign variation</li>
+</ul>
+<h4 id="status-5">Status</h4>
+<ul>
+<li>Planned.</li>
+</ul>
+<h4 id="resources-5">Resources</h4>
+<h4 id="conditions-5">Conditions</h4>
+<h4 id="shortcomings-5">Shortcomings</h4>
+<h3 id="pm2">PM2</h3>
+<ul>
+<li>Absent from controls (or at extremely low frequency if recessive) (Table 6) in Exome Sequencing Project, 1000 Genomes Project, or Exome Aggregation Consortium</li>
+</ul>
+<h4 id="status-6">Status</h4>
+<ul>
+<li>Implemented</li>
+</ul>
+<h4 id="resources-6">Resources</h4>
+<ul>
+<li>VEP</li>
+</ul>
+<h4 id="conditions-6">Conditions</h4>
+<ul>
+<li>“gnomad” less than 0.001.</li>
+</ul>
+<h4 id="shortcomings-6">Shortcomings</h4>
+<h3 id="pm3">PM3</h3>
+<ul>
+<li>For recessive disorders, detected in trans with a pathogenic variant</li>
+</ul>
+<h4 id="status-7">Status</h4>
+<ul>
+<li>Not Checked</li>
+</ul>
+<h4 id="resources-7">Resources</h4>
+<h4 id="conditions-7">Conditions</h4>
+<h4 id="shortcomings-7">Shortcomings</h4>
+<h3 id="pm4">PM4</h3>
+<ul>
+<li>Protein length changes as a result of in-frame deletions/insertions in a nonrepeat region or stop-loss variants</li>
+</ul>
+<h4 id="status-8">Status</h4>
+<ul>
+<li>Implemented</li>
+</ul>
+<h4 id="resources-8">Resources</h4>
+<ul>
+<li>VEP</li>
+</ul>
+<h4 id="conditions-8">Conditions</h4>
+<ul>
+<li>“transcript_consequence_terms” is “inframe_insertion”, “inframe_deletion”, or “stop_lost”.</li>
+</ul>
+<h4 id="shortcomings-8">Shortcomings</h4>
+<ul>
+<li>No checks for repeat regions.</li>
+</ul>
+<h3 id="pm5">PM5</h3>
+<ul>
+<li>Novel missense change at an amino acid residue where a different missense change determined to be pathogenic has been seen before</li>
+</ul>
+<h4 id="status-9">Status</h4>
+<ul>
+<li>Broken.</li>
+</ul>
+<h4 id="resources-9">Resources</h4>
+<ul>
+<li>Clinvar xml (ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/)</li>
+</ul>
+<h4 id="annotation-steps-1">Annotation Steps</h4>
+<ol type="1">
+<li>Clinvar data is parsed using https://github.com/barslmn/clinvar.</li>
+<li>Sample data and clinvar data hgvsp columns parsed till position.</li>
+<li>Synonym changes removed from clinvar data.</li>
+<li>Clinvar feature columns “hgvsc”, and “clinical_significance” added to original annotation based on protein change position.</li>
+</ol>
+<h4 id="conditions-9">Conditions</h4>
+<ol type="1">
+<li>“gnomad” less then 0.001.</li>
+<li>“clinical_significance” is pathogenic.</li>
+<li>“transcript_consequence_terms” is missense variant.</li>
+<li>“hgvsc” of the variant and clinvar entry dont match.</li>
+</ol>
+<h4 id="shortcomings-9">Shortcomings</h4>
+<h3 id="pm6">PM6</h3>
+<ul>
+<li>Assumed de novo, but without confirmation of paternity and maternity</li>
+</ul>
+<h4 id="status-10">Status</h4>
+<ul>
+<li>Not Checked.</li>
+</ul>
+<h4 id="resources-10">Resources</h4>
+<h4 id="conditions-10">Conditions</h4>
+<h4 id="shortcomings-10">Shortcomings</h4>
+<h3 id="pp1">PP1</h3>
+<ul>
+<li>Cosegregation with disease in multiple affected family members in a gene definitively known to cause the disease</li>
+</ul>
+<h4 id="status-11">Status</h4>
+<ul>
+<li>Not Checked.</li>
+</ul>
+<h4 id="resources-11">Resources</h4>
+<h4 id="conditions-11">Conditions</h4>
+<h4 id="shortcomings-11">Shortcomings</h4>
+<h3 id="pp2">PP2</h3>
+<ul>
+<li>Missense variant in a gene that has a low rate of benign missense variation and in which missense variants are a common mechanism of disease</li>
+</ul>
+<h4 id="status-12">Status</h4>
+<ul>
+<li>Implemented</li>
+</ul>
+<h4 id="resources-12">Resources</h4>
+<ul>
+<li>Intervar</li>
+</ul>
+<h4 id="conditions-12">Conditions</h4>
+<ul>
+<li>“transcript_consequence_terms” is a missense variant.</li>
+<li>“gene_symbol” is in PP2 gene list.</li>
+</ul>
+<h4 id="shortcomings-12">Shortcomings</h4>
+<h3 id="pp3">PP3</h3>
+<ul>
+<li>Multiple lines of computational evidence support a deleterious effect on the gene or gene product (conservation, evolutionary, splicing impact, etc.)</li>
+</ul>
+<h4 id="status-13">Status</h4>
+<ul>
+<li>Implemented</li>
+</ul>
+<h4 id="resources-13">Resources</h4>
+<ul>
+<li>Vep</li>
+</ul>
+<h4 id="conditions-13">Conditions</h4>
+<ul>
+<li>“sift_score” less than 0.05</li>
+<li>“polyphen_score” greater than 0.908</li>
+</ul>
+<h4 id="shortcomings-13">Shortcomings</h4>
+<h3 id="pp4">PP4</h3>
+<ul>
+<li>Patient’s phenotype or family history is highly specific for a disease with a single genetic etiology</li>
+</ul>
+<h4 id="status-14">Status</h4>
+<ul>
+<li>Not Checked.</li>
+</ul>
+<h4 id="resources-14">Resources</h4>
+<h4 id="conditions-14">Conditions</h4>
+<h4 id="shortcomings-14">Shortcomings</h4>
+<h3 id="pp5">PP5</h3>
+<ul>
+<li>Reputable source recently reports variant as pathogenic, but the evidence is not available to the laboratory to perform an independent evaluation</li>
+</ul>
+<h4 id="status-15">Status</h4>
+<ul>
+<li>Implemented.</li>
+</ul>
+<h4 id="resources-15">Resources</h4>
+<ul>
+<li>Clinvar</li>
+</ul>
+<h4 id="conditions-15">Conditions</h4>
+<ul>
+<li>“clinical_significance” is Pathogenic.</li>
+</ul>
+<h4 id="shortcomings-15">Shortcomings</h4>
+<h3 id="benign">Benign</h3>
+<h3 id="ba1">BA1</h3>
+<ul>
+<li>Allele frequency is &gt;5% in Exome Sequencing Project, 1000 Genomes Project, or Exome Aggregation Consortium</li>
+</ul>
+<h4 id="status-16">Status</h4>
+<ul>
+<li>Implemented.</li>
+</ul>
+<h4 id="resources-16">Resources</h4>
+<ul>
+<li>Vep</li>
+</ul>
+<h4 id="conditions-16">Conditions</h4>
+<ul>
+<li>“minor_allele_freq” is greater than 0.05</li>
+</ul>
+<p>OR</p>
+<ul>
+<li>“gnomad” is greater than 0.05.</li>
+</ul>
+<h4 id="shortcomings-16">Shortcomings</h4>
+<h3 id="bs1">BS1</h3>
+<ul>
+<li>Allele frequency is greater than expected for disorder</li>
+</ul>
+<h4 id="status-17">Status</h4>
+<ul>
+<li>Not Checked.</li>
+</ul>
+<h4 id="resources-17">Resources</h4>
+<h4 id="conditions-17">Conditions</h4>
+<h4 id="shortcomings-17">Shortcomings</h4>
+<h3 id="bs2">BS2</h3>
+<ul>
+<li>Observed in a healthy adult individual for a recessive (homozygous), dominant (heterozygous), or X-linked (hemizygous) disorder, with full penetrance expected at an early age</li>
+</ul>
+<h4 id="status-18">Status</h4>
+<h4 id="resources-18">Resources</h4>
+<h4 id="conditions-18">Conditions</h4>
+<h4 id="shortcomings-18">Shortcomings</h4>
+<h3 id="bs3">BS3</h3>
+<ul>
+<li>Well-established in vitro or in vivo functional studies show no damaging effect on protein function or splicing</li>
+</ul>
+<h4 id="status-19">Status</h4>
+<ul>
+<li>Not Checked.</li>
+</ul>
+<h4 id="resources-19">Resources</h4>
+<h4 id="conditions-19">Conditions</h4>
+<h4 id="shortcomings-19">Shortcomings</h4>
+<h3 id="bs4">BS4</h3>
+<ul>
+<li>Lack of segregation in affected members of a family</li>
+</ul>
+<h4 id="status-20">Status</h4>
+<ul>
+<li>Not Checked.</li>
+</ul>
+<h4 id="resources-20">Resources</h4>
+<h4 id="conditions-20">Conditions</h4>
+<h4 id="shortcomings-20">Shortcomings</h4>
+<h3 id="bp1">BP1</h3>
+<ul>
+<li>Missense variant in a gene for which primarily truncating variants are known to cause disease</li>
+</ul>
+<h4 id="status-21">Status</h4>
+<ul>
+<li>Implemented.</li>
+</ul>
+<h4 id="resources-21">Resources</h4>
+<ul>
+<li>Intervar</li>
+</ul>
+<h4 id="conditions-21">Conditions</h4>
+<ul>
+<li>“transcript_consequence_terms” is a missense variant.</li>
+<li>“gene_symbol” is in BP1 gene list.</li>
+</ul>
+<h4 id="shortcomings-21">Shortcomings</h4>
+<h3 id="bp2">BP2</h3>
+<ul>
+<li>Observed in trans with a pathogenic variant for a fully penetrant dominant gene/disorder or observed in cis with a pathogenic variant in any inheritance pattern</li>
+</ul>
+<h4 id="status-22">Status</h4>
+<ul>
+<li>Not Checked.</li>
+</ul>
+<h4 id="resources-22">Resources</h4>
+<h4 id="conditions-22">Conditions</h4>
+<h4 id="shortcomings-22">Shortcomings</h4>
+<h3 id="bp3">BP3</h3>
+<ul>
+<li>In-frame deletions/insertions in a repetitive region without a known function</li>
+</ul>
+<h4 id="status-23">Status</h4>
+<h4 id="resources-23">Resources</h4>
+<h4 id="conditions-23">Conditions</h4>
+<h4 id="shortcomings-23">Shortcomings</h4>
+<h3 id="bp4">BP4</h3>
+<ul>
+<li>Multiple lines of computational evidence suggest no impact on gene or gene product (conservation, evolutionary, splicing impact, etc.)</li>
+</ul>
+<h4 id="status-24">Status</h4>
+<ul>
+<li>Implemented</li>
+</ul>
+<h4 id="resources-24">Resources</h4>
+<ul>
+<li>VEP</li>
+</ul>
+<h4 id="conditions-24">Conditions</h4>
+<ul>
+<li>“sift_score” greater than or equals to 0.05</li>
+<li>“polyphen_score” less than or equals to 0.446</li>
+</ul>
+<h4 id="shortcomings-24">Shortcomings</h4>
+<h3 id="bp5">BP5</h3>
+<ul>
+<li>Variant found in a case with an alternate molecular basis for disease</li>
+</ul>
+<h4 id="status-25">Status</h4>
+<ul>
+<li>Not Checked.</li>
+</ul>
+<h4 id="resources-25">Resources</h4>
+<h4 id="conditions-25">Conditions</h4>
+<h4 id="shortcomings-25">Shortcomings</h4>
+<h3 id="bp6">BP6</h3>
+<ul>
+<li>Reputable source recently reports variant as benign, but the evidence is not available to the laboratory to perform an independent evaluation</li>
+</ul>
+<h4 id="status-26">Status</h4>
+<ul>
+<li>Implemented</li>
+</ul>
+<h4 id="resources-26">Resources</h4>
+<ul>
+<li>Clinvar</li>
+</ul>
+<h4 id="conditions-26">Conditions</h4>
+<ul>
+<li>“clinical_significance” is benign</li>
+</ul>
+<h4 id="shortcomings-26">Shortcomings</h4>
+<h3 id="bp7">BP7</h3>
+<ul>
+<li>A synonymous (silent) variant for which splicing prediction algorithms predict no impact to the splice consensus sequence nor the creation of a new splice site AND the nucleotide is not highly conserved</li>
+</ul>
+<h4 id="status-27">Status</h4>
+<h4 id="resources-27">Resources</h4>
+<h4 id="conditions-27">Conditions</h4>
+<h4 id="shortcomings-27">Shortcomings</h4>
+</body>
+</html>
