@@ -50,6 +50,7 @@
 
 #### (ii)  the criteria for benign and  pathogenic are contradictory
 '''
+
 import json
 
 
@@ -58,8 +59,7 @@ class VariantClassification:
     def __init__(self):
         pass
 
-    # All Functions below here used for variant classification.
-    def classify_variant(self, evidences):
+    def classify_variant(self, evidences, single_out):
         self.evidences = json.loads(evidences)
         self.variant_significance = {'pathogenic': 0,
                                      'likely_pathogenic': 0,
@@ -91,7 +91,15 @@ class VariantClassification:
             self.variant_significance['pathogenic'] = 0
             self.variant_significance['benign'] = 0
 
-        return self.variant_significance
+        if single_out:
+            if sum(self.variant_significance.values()) == 1:
+                for k, v in self.variant_significance.items():
+                    if v == 1:
+                        return k
+            else:
+                return 'unknown'
+        else:
+            return self.variant_significance
 
     def get_evidence_group(self, group):
         return [self.evidences[evidence] for evidence in self.evidences if group in self.evidences]

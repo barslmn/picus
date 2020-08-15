@@ -51,13 +51,16 @@
 '''
 
 import os
+import json
 import pandas as pd
 from picus import data
 data_path = data.__path__[0]
 
 
 class EvidenceCollection:
+
     def __init__(self):
+        self.evidences = ['PVS1', 'PS1', 'PS2', 'PS3', 'PS4', 'PM1', 'PM2', 'PM3', 'PM4', 'PM5', 'PM6', 'PP1', 'PP2', 'PP3', 'PP4', 'PP5', 'BA1', 'BS1', 'BS2', 'BS3', 'BS4', 'BP1', 'BP2', 'BP3', 'BP4', 'BP5', 'BP6', 'BP7']
         lof_genes = pd.read_csv(
             os.path.join(data_path, 'lof_genes.tsv'),
             sep='\t'
@@ -120,11 +123,16 @@ class EvidenceCollection:
         )
 
         # for PM5
-        aa_pos = df['hgvsp'].str.split(
+        # This gives error for non_coding when there is no hgsvp
+        aa_pos = df.hgvsp.astype(str).str.split(
             r'((\w+)\.(\d+)?:p\.[a-zA-Z]+(\d+))', expand=True)
+        print(aa_pos)
         df['np'] = aa_pos[2]
         df['np_ver'] = aa_pos[3]
         df['np_pos'] = aa_pos[4]
+        print(df['np'])
+        print(df['np_ver'])
+        print(df['np_pos'])
 
         # BROKEN ###
         # merge on split hgvsp
@@ -196,7 +204,18 @@ class EvidenceCollection:
             ', "BP6": ' + df['BP6'] + \
             ', "BP7": ' + df['BP7'] + \
             '}'
+
+        df.drop(self.evidences, axis=1, inplace=True)
+
         return df
+
+    def flat_evidences(self, evidences):
+        evidences_dict = json.loads(evidences)
+        evidence_str = ''
+        for evidence in self.evidences:
+            if evidences_dict[evidence] == 1:
+                evidence_str += '{} '.format(evidence)
+        return evidence_str
 
     # Pathogenic
 
@@ -246,7 +265,6 @@ class EvidenceCollection:
             return '0'
 
     def get_PM5(self, df):
-        return '0'
         if df['gnomad'] < 0.001 and \
            df['transcript_consequence_terms'] == 'missense_variant' and \
            df['clin_sig'] == 'Pathogenic' and \

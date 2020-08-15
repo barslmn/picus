@@ -1,3 +1,5 @@
 # Include the data files
 include picus/data/variant_consequences.tsv
 include picus/data/lof_genes.tsv
+include picus/templates/template.Rnw
+include picus/templates/picus.png
